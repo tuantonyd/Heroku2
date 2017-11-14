@@ -1,0 +1,28 @@
+.spacer
+.container
+  .row.card.table-card
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Price
+          %th Quantity
+          %th
+      - @cart_items.each_with_index do |cart_item, index|
+        %tr
+          %td= cart_item[:item].name
+          %td= number_to_currency(cart_item[:item].price)
+          %td= cart_item[:qty]
+          %td
+            %a{:href => "/cart/remove?cookieIndex=#{cart_item[:item].id}"}
+              %i.fa.fa-trash-o
+  .spacer
+  .row
+    .col-md-4.ml-auto.mr-auto
+      %h6
+        = "Order Total: #{number_to_currency(@total)}"
+    .col-md-3.ml-auto.mr-auto
+    .col-md-2.ml-auto.mr-auto
+      = link_to "Continue Shopping", items_path, class: 'button btn btn-primary'
+    .col-md-2.ml-auto.mr-auto
+      = link_to "Proceed to checkout", check_out_path, class: 'button btn btn-primary'

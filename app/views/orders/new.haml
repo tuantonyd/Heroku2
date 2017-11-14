@@ -1,0 +1,38 @@
+.spacer
+.container
+  .row
+    .col-md-6.ml-auto.mr-auto
+      .card
+        .card-header
+          %h3 Checkout
+        .table-card
+          = simple_form_for @order, html: {id: 'order-form'} do |f|
+            %h5 Shipping Information
+            .row
+              .col-6
+                = f.input :first_name, input_html: {value: @user.first_name}
+              .col-6
+                = f.input :last_name, input_html: {value: @user.last_name}
+            .row
+              .col-8
+                = f.input :address, input_html: {value: @user.address}
+              .col-4
+                = f.input :address_two, input_html: {value: @user.address_two}
+            .row
+              .col-3
+                = f.input :city, input_html: {value: @user.city}
+              .col-3
+                = f.input :zip, input_html: {value: @user.zip}
+              .col-3
+                = f.input :state_id, :collection => State.all,:label_method => :state_name,:value_method => :id, :label => "State" ,:include_blank => false, selected: @user.state_id
+              .col-3
+                = f.input :country_id, :collection => Country.all,:label_method => :country_name,:value_method => :id, :label => "Country" ,:include_blank => false, selected: @user.country_id
+            %h5 Payment Information
+            .row
+              .col-12
+                #cc_number.cc-spacing
+            .row
+              .col-12
+                = f.input :notes
+            All Sales are Final, No Refunds.
+            = f.submit 'Complete Order', class: 'btn btn-warning float-right'

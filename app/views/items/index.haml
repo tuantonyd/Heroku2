@@ -1,0 +1,11 @@
+.spacer
+.container
+  .row
+    - @items.each do |item|
+      = link_to item, class: 'card shop-card' do
+        - if item.item_images.any?
+          = image_tag item.item_images.first.file, class: 'img-responsive img-thumbnail'
+        %p.card-text
+          = item.name
+        %p.card-text
+          #{number_to_currency(item.price)}

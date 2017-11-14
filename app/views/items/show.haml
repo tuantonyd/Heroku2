@@ -1,0 +1,31 @@
+.spacer
+.container
+  .row
+    .col-md-2#back-to-shop
+      %a{:href => items_path}
+        %i.fa.fa-arrow-left
+        Back to Shop
+  .row
+    .col-md-5.ml-auto.card.shop-card
+      -if @item.item_images.any?
+        = image_tag @item.item_images.first.file, class: 'img-responsive img-thumbnail', id: 'enlarged'
+        .row.ml-auto
+          - @item.item_images.each do |image|
+            .col-md-4
+              = image_tag image.file, class: 'img-responsive img-thumbnail img-thumbnail-helper'
+    .col-md-1
+    .col-md-3.mr-auto.card.shop-card
+      %h2= @item.name
+      = number_to_currency(@item.price)
+      %p
+        %h4 Description
+        = @item.description
+      = form_tag add_to_cart_url do |form|
+        = hidden_field :item, :id , { value: @item.id, id: 'item' }
+        - if current_user.try(:admin?)
+          = link_to 'Edit this item', edit_item_path(@item), {class: 'btn btn-primary'}
+        - else
+          %label Quantity:
+          %input#qty{:type => "number", :value => "1", min: '0', name: 'qty', class: 'form-control'}
+          %br
+          = submit_tag 'Add to Cart', {class: 'btn btn-primary'}

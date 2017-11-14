@@ -1,0 +1,19 @@
+.container-fluid
+  .row
+    =image_tag 'contactheader', class: 'jumbo-image'
+  .centered
+    .col-md-6.ml-auto.mr-auto
+      .card
+        .card-header
+          %h3 Contact Us
+        .table-card
+          = simple_form_for @contact_form do |f|
+            .row
+              .col-6
+                = f.input :name, :required => false
+              .col-6
+                = f.input :email, :required => false
+            .row
+              .col-12
+                = f.input :message, :as => :text, :required => false
+                = f.button :submit, 'Send message', class: 'btn btn-primary pull-right'

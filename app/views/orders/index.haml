@@ -1,0 +1,24 @@
+.spacer
+.container
+  .row
+    .col-md-12
+      .card
+        .card-header
+          %h3 Order History
+        .table-card
+          %table.table.striped
+            %thead
+              %tr
+                %th Date Placed
+                %th Last Updated
+                %th Status
+                %th Total
+                %th
+            %tbody
+              - @orders.reverse_each do |order|
+                %tr
+                  %td= order.created_at.strftime('%m/%d/%Y %l:%M %p')
+                  %td= order.updated_at.strftime('%m/%d/%Y %l:%M %p')
+                  %td= order.order_status.status
+                  %td= number_to_currency(order.total)
+                  %td= link_to 'Review Order', order

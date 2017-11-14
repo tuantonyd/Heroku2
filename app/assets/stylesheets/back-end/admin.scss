@@ -1,0 +1,35 @@
+// Place all the styles related to the Admin controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.module {
+  margin: 20px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+body {
+  background-color: #f4f6f8;
+}
+
+.navbar {
+  background-color: #e8e9ea;
+  border-bottom: 1px solid #ccc;
+  color: black;
+}
+
+.navbar-menu {
+  li {
+    display: inline-block;
+    list-style: none !important;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+#availability-fixer {
+  margin-right: 36px;
+}

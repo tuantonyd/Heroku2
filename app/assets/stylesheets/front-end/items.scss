@@ -1,0 +1,32 @@
+// Place all the styles related to the items controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.shop-card {
+  float: left;
+  padding: .75rem;
+  border: 0;
+  width: 25%;
+  height: 100%;
+}
+
+.table-card {
+  padding: .75rem;
+}
+
+.card-text {
+  font-size: 85%;
+  text-align: center;
+}
+
+#image-fixer {
+  overflow-x: hidden;
+}
+
+.img-thumbnail-helper {
+  margin-top: 5px;
+}
+
+#back-to-shop {
+  margin-bottom: -25px;
+}

@@ -1,0 +1,56 @@
+
+.container
+  .row
+    .spacer
+    .col-md-4
+      .card
+        .card-header
+          %h3 This Week's Sales:
+        .table-card
+          =column_chart ReportingHelper.orders_this_week, library: {hAxis: {title: 'X Axis Title' }, vAxis: {title: 'Y Axis Title'}}
+    .col-md-4
+      .card
+        .card-header
+          %h3 This Month's Sales:
+        .table-card
+          =column_chart ReportingHelper.orders_this_month
+    .col-md-4
+      .card
+        .card-header
+          %h3 This Year's Sales:
+        .table-card
+          =line_chart ReportingHelper.orders_this_year
+  .row
+    .spacer
+    .col-md-12
+      .card
+        .card-header
+          %h3 Most Sold Products
+        .table-card
+          %table.table.table-bordered.table-striped
+            %thead
+              %tr
+                %th Product
+                %th Quantity
+            - ReportingHelper.item_popularity.each do |report_line|
+              %tr
+                %td= report_line[0]
+                %td= report_line[1]
+            = pie_chart ReportingHelper.item_popularity
+  .row
+    .spacer
+    .col-md-6
+      .card
+        .card-header
+          %h3 Total Sales by Customer
+        .table-card
+          %table.table.table-bordered.table-striped
+            %thead
+              %tr
+                %th Customer
+                %th Total
+            - @user_order_report.each do |user_report|
+              %tr
+                %td= user_report[0].full_name
+                %td
+                  = number_to_currency user_report[1]

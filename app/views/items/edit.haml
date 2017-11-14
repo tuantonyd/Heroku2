@@ -1,0 +1,30 @@
+.spacer
+.container
+  .row
+    .col-md-4.ml-auto.mr-auto.card.table-card
+      = simple_form_for @item, :html => { :multipart => true } do |f|
+        .row
+          .col-8
+            = f.input :name
+          .col-4
+            = f.input :price
+        .row
+          .col-12
+            = f.input :description, class: 'form-control'
+        .spacer
+        .row
+          .col-2
+            = f.label :item_image, 'Images:'
+          .col-9.ml-auto.mr-auto#image-fixer
+            = file_field_tag "item_images[]", type: :file, multiple: true
+        .spacer
+        .row
+          .col-12
+            = f.label :available, 'Available:'
+            = f.select :available, options_for_select([['Yes', true], ['No', false]])
+        .spacer
+        .row
+          .col-6.ml-auto.mr-auto
+            = link_to 'Cancel', admin_path, class: 'btn btn-danger float-left'
+          .col-6.ml-auto.mr-auto
+            = f.button :submit, 'Update Item', class: 'btn btn-primary float-right'

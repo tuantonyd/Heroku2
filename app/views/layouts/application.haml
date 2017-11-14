@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    = favicon_link_tag 'icon.ico'
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Oliver Heart | Giftboxes & More
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track'=> 'reload'
+  %body
+    #main-wrapper
+      .header
+        .col-md-4.ml-auto.mr-auto
+          = content_tag(:div, flash[:notice], :id => "flash_notice", class: 'alert alert-info') if flash[:notice]
+          - if flash[:alert]
+            .alert.alert-danger#flash_alert
+              - if flash[:alert].kind_of?(Array)
+                - flash[:alert].each do |alert|
+                  %li
+                    = alert
+              - else
+                = flash[:alert]
+        = render 'layouts/partials/header'
+      .main
+        = yield
+      .footer
+        = render 'layouts/partials/footer'
+    %script{:src => "https://js.stripe.com/v3/"}
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'

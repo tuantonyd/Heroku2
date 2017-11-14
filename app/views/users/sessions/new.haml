@@ -1,0 +1,12 @@
+.spacer
+.container
+  .row
+    .col-md-4.ml-auto.mr-auto.card.table-card
+      = simple_form_for @user, url: user_session_path(@user) do |f|
+        = f.input :email
+        = f.input :password
+        = f.input :remember_me, as: :boolean, checked_value: true, unchecked_value: false
+        = f.button :submit, 'Login', class: 'btn btn-primary'
+  .row
+    .col-md-4.ml-auto.mr-auto#links
+      = render "users/shared/links"

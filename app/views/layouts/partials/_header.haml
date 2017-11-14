@@ -1,0 +1,38 @@
+.container
+  #top-nav
+    #user-name
+      - if user_signed_in?
+        Hello, #{current_user.first_name}
+    - if user_signed_in?
+      .dropdown
+        %button.dropbtn
+          Account
+        .dropdown-content
+          - if !current_user.try(:admin?)
+            = link_to 'View Orders', orders_path
+          = link_to 'Edit Profile', edit_account_path
+          = link_to 'Logout', destroy_user_session_path, method: :delete
+      |
+    - else
+      = link_to('Login', new_user_session_path)
+      |
+    - if current_user.try(:admin?)
+      = link_to 'Admin Portal', admin_path
+    - else
+      %a{:href => cart_path}
+        %i.fa.fa-shopping-cart
+        Cart
+.container
+  #company-logo
+    = image_tag("oliver-heart-logo.png", height: 150)
+.container
+  #main-nav
+    %ul
+      %li
+        = link_to 'Home', welcome_index_path
+      %li
+        = link_to 'About', welcome_about_path
+      %li
+        = link_to 'Shop', items_path
+      %li
+        = link_to 'Contact', new_contact_form_path

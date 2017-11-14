@@ -1,0 +1,26 @@
+.spacer
+.container
+  .row
+    .col-md-12
+      .card
+        .card-header
+          %h3 
+            Item Management Center
+            %span= link_to 'New Item', new_item_path, class: 'btn btn-success float-right'
+        .table-card
+          %table.table
+            %thead
+              %tr
+                %th Product Name
+                %th Price
+                %th Availability
+                %th
+                %th
+            %tr
+            - @items.each do |item|
+              %tr
+                %td= item.name
+                %td= number_to_currency(item.price)
+                %td= boolean_helper(item.available)
+                %td= link_to "Edit", "#{edit_item_path item}"
+                %td= link_to 'Remove', delete_item_path(item.id) , method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,0 +1,57 @@
+<%= form_with(model: order, local: true, id: "order-form") do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :total %>
+    <p><%= @total %></p>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes %><br />
+    <%= form.text_field :notes, id: :order_notes %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %><br />
+    <%= form.text_field :address, value: @user.address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %><br />
+    <%= form.text_field :city, value: @user.city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :zip %><br />
+    <%= form.text_field :zip, value: @user.zip %>
+  </div>
+
+  <div class="field">
+     <%= form.label :state %><br />
+     <%= form.collection_select :state_id, State.all ,:id,  :state_name, selected: @user.state_id %>
+   </div>
+
+
+
+  <div class="field">
+    <label for="cc_number">
+      Credit Card
+    </label>
+    <div id="cc_number"></div>
+  </div>
+
+  <%= hidden_field :user, :id, value: @user %>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>

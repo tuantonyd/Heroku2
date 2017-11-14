@@ -1,0 +1,32 @@
+.container
+  #top-nav
+    #user-name
+      - if user_signed_in?
+        Hello, #{current_user.first_name}
+    - if user_signed_in?
+      .dropdown
+        %button.dropbtn
+          Account
+        .dropdown-content
+          - if !current_user.admin?
+            = link_to 'View Orders', orders_path
+          = link_to 'Edit Profile', edit_account_path
+          = link_to 'Logout', destroy_user_session_path, method: :delete
+    - else
+      = link_to('Login', new_user_session_path)
+    |
+    = link_to 'Back to Website', welcome_index_path
+.container
+  #company-logo
+    = image_tag("gift-patisserie-oms-logo.png", height: 100)
+.container
+  #main-nav
+    %ul
+      %li
+        = link_to 'Home', admin_path
+      %li
+        = link_to 'Item Management', admin_items_path
+        %li
+          = link_to 'User Management', user_management_path
+      %li
+        = link_to 'Reports', admin_reports_path

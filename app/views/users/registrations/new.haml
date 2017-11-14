@@ -1,0 +1,38 @@
+.spacer
+.container
+  .row
+    .col-md-6.ml-auto.mr-auto.card.table-card
+      = simple_form_for resource, as: resource_name, url: registration_path(resource_name) do |f|
+        .row
+          .col-6
+            = f.input :first_name
+          .col-6
+            = f.input :last_name
+        .row
+          .col-8
+            = f.input :address
+          .col-4
+            = f.input :address_two
+        .row
+          .col-3
+            = f.input :city
+          .col-3
+            = f.input :zip
+          .col-3
+            = f.input :state_id, :collection => State.all,:label_method => :state_name,:value_method => :id, :label => "State" ,:include_blank => false
+          .col-3
+            = f.input :country_id, :collection => Country.all,:label_method => :country_name,:value_method => :id, :label => "Country" ,:include_blank => false
+        .row
+          .col-6
+            = f.input :email
+          .col-6
+            = f.input :phone, :input_html => {:class => "mask-phone", :type=>"text"}
+        .row
+          .col-6
+            = f.input :password
+          .col-6
+            = f.input :password_confirmation
+        = f.button :submit, 'Create Account', class: 'btn btn-primary'
+  .row
+    .col-md-6.ml-auto.mr-auto#links
+      = render "users/shared/links"

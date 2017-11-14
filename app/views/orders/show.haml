@@ -1,0 +1,62 @@
+.spacer
+.container
+  .col-8.ml-auto.mr-auto
+    .card
+      .card-header
+        - if user_signed_in?
+          - if current_user.try(:admin?)
+            %h3 Order Line Management
+          - else
+            %h3 Order Review
+      .table-card
+        %p
+          %strong Customer:
+          = @order.user.full_name
+          %br
+          %strong E-mail:
+          = @order.user.email
+        %p
+          %strong Delivery Information:
+          - if @order.user.phone
+            %br/
+            = number_to_phone(@order.user.phone, area_code: true)
+          %br/
+          = @order.first_name + " " + @order.last_name
+          %br/
+          = @order.address
+          - if @order.address_two
+            %br/
+            = @order.address_two
+          %br/
+          = @order.city + ", " + @order.state.state_name + " " + @order.zip.to_s
+        %p
+          %strong Total:
+          = number_to_currency(@order.total)
+        %p
+          %strong Notes:
+          = @order.notes
+        %p
+          %strong Order Status:
+          = @order.order_status.status
+        = form_for @order, method: 'put' do |f|
+          %table.table
+            %tr
+              %td Item
+              %td Price
+              %td Quantity
+              %td Fulfilled
+              %td Status
+            - @order.order_lines.each do |content|
+              = fields_for 'order_lines[]', content do |c_fields|
+                %tr
+                  %td= content.item.name
+                  %td= number_to_currency(content.item.price)
+                  %td= content.qty
+                  %td= current_user.try(:admin?) ? ( c_fields.number_field :quantity_fulfilled, {disabled: true, default: content.quantity_fulfilled} )  : (content.quantity_fulfilled)
+                  %td= current_user.try(:admin?) ? ( c_fields.collection_select :order_line_status, OrderLineStatus.all, :id, :status, selected: content.order_line_status.id)  : (content.order_line_status.status)
+          - if current_user.try(:admin?)
+            = f.submit 'Update', class: 'btn btn-primary float-right'
+          - if current_user.try(:admin?)
+            = link_to 'Back', admin_path, class: 'btn btn-info float-left'
+          - else
+            = link_to 'Back', orders_path, class: 'btn btn-info'

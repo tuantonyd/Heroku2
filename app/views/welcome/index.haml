@@ -1,0 +1,29 @@
+.container-fluid.container-fluid-helper
+  .row
+    =image_tag 'collageone', class: 'jumbo-image'
+    .centered#centered-welcome
+      #text-box
+        .home-text#home-text-short
+          Welcome to Oliver Heart
+        .home-text#home-text-long
+          Founded in 2014, Oliver Heart offers gift baskets that are curated to meet the client's every satisfaction. Ranging from pre-made baskets to custom one-time baskets, we have an offering for every occasion.
+.spacer
+.container-fluid
+  .row
+    .col-md-4.ml-auto
+      =image_tag 'cookiebasket', class: 'small-image'
+      .centered
+        .home-text#small-image-text
+          Corporate Events
+    .col-md-4
+      =image_tag 'christmastreats', class: 'small-image'
+      .centered
+        .home-text#small-image-text
+          Giftboxes
+    .col-md-4
+      =image_tag 'img-right-2', class: 'small-image'
+      .centered
+        .home-text#small-image-text
+          Baked Goods
+
+%iframe.hidden{:allowfullscreen => "", :autoplay => "true", :frameborder => "0", :height => "315", :src => "https://www.youtube.com/embed/PEGccV-NOm8?rel=0&autoplay=1", :width => "560"}

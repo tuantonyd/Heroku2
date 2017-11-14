@@ -1,0 +1,10 @@
+.spacer
+.container
+  .row
+    .col-md-4.ml-auto.mr-auto.card.table-card
+      = simple_form_for @user, url: user_password_path(@user) do |f|
+        = f.input :email
+        = f.button :submit, 'Reset Password', class: 'btn btn-primary'
+  .row
+    .col-md-4.ml-auto.mr-auto#links
+      = render "users/shared/links"

@@ -1,0 +1,78 @@
+.spacer
+.container
+  .row
+    .col-md-12
+      .card
+        .card-header
+          %h3 Order Management Center
+        .table-card
+          %p
+            %button.btn.btn-primary.btn-sm#uf-orders-button
+              Unfulfilled Orders
+            %button.btn.btn-secondary.btn-sm#pf-orders-button
+              Partially Filled Orders
+            %button.btn.btn-secondary.btn-sm#all-orders-button
+              All Orders
+
+          %div#to-fulfill
+            You have
+            %strong= @uforders.count
+            unfulfilled orders
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th Customer
+                  %th Placed
+                  %th Total
+                  %th
+              %tbody
+                %tr
+                  - @uforders.each do |order|
+                    %td= order.user.first_name + " " + order.user.last_name
+                    %td
+                      Created at: #{order.created_at.strftime('%m/%d/%Y %l:%M %p')}
+                    %td= number_to_currency order.total
+                    %td= link_to 'Manage', order
+                    %tr
+            = will_paginate @uforders
+
+          %div#partly-fulfilled.hidden#pf-orders
+            You have
+            %strong= @pforders.count
+            partially fulfilled orders
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th Customer
+                  %th Placed
+                  %th Total
+                  %th
+              %tbody
+                %tr
+                  - @pforders.each do |order|
+                    %td= order.user.first_name + " " + order.user.last_name
+                    %td
+                      Created at: #{order.created_at.strftime('%m/%d/%Y %l:%M %p')}
+                    %td= number_to_currency order.total
+                    %td= link_to 'Manage', order
+                    %tr
+            = will_paginate @pforders
+
+          %div#to-fulfill.hidden#all-orders
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th Customer
+                  %th Placed
+                  %th Total
+                  %th
+              %tbody
+                %tr
+                  - @allorders.each do |order|
+                    %td= order.user.first_name + " " + order.user.last_name
+                    %td
+                      Created at: #{order.created_at.strftime('%m/%d/%Y %l:%M %p')}
+                    %td= number_to_currency order.total
+                    %td= link_to 'Manage', order
+                    %tr
+            = will_paginate @allorders
